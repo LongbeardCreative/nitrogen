@@ -1,3 +1,4 @@
+<?php
 /*
 Plugin Name:  Profectus
 Plugin URI:   https://www.longbeard.com/profectus-report
