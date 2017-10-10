@@ -10,14 +10,20 @@ License:      GPL2
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 */
 
+//Exit if Accessed Directly
+if (! defined('ABSPATH')) {
+    exit;
+}
+
+//Plugin Requirements
+require_once( plugin_dir_path(__FILE__) . 'admin/pf_settings.php');
+
 function profectus_init() {
-    add_sub_menu_page(
-        'toplevel_page_ct_dashboard_page',
-        'Profectus Settings',
-        'Profectus',
-        'manage_options',
-        'profectus',
-        'profectus_settings_callback'
-    );
+    add_submenu_page( 	'ct_dashboard_page',
+						'Profectus',
+						'Profectus',
+						'manage_options',
+						'pf_settings',
+						'pf_settings_callback' );
 }
 add_action( 'admin_menu', 'profectus_init' );
