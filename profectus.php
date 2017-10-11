@@ -27,3 +27,9 @@ function profectus_init() {
 						'pf_settings_callback' );
 }
 add_action( 'admin_menu', 'profectus_init' );
+
+function pf_enqueue_styles() {
+    wp_register_style( 'main_css',  plugin_dir_url( __FILE__ ) . 'assets/style.css' );
+    wp_enqueue_style( 'main_css' );
+}
+add_action( 'oxygen_enqueue_scripts', 'pf_enqueue_styles' );
