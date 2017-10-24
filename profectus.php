@@ -16,17 +16,9 @@ if (! defined('ABSPATH')) {
 }
 
 //Plugin Requirements
-require_once( plugin_dir_path(__FILE__) . 'admin/pf_settings.php');
+require_once( plugin_dir_path(__FILE__) . 'overrides/override.php');
+require_once( plugin_dir_path(__FILE__) . 'admin/profectus_admin.php');
 
-function profectus_init() {
-    add_submenu_page( 	'ct_dashboard_page',
-						'Profectus',
-						'Profectus',
-						'manage_options',
-						'pf_settings',
-						'pf_settings_callback' );
-}
-add_action( 'admin_menu', 'profectus_init' );
 
 function pf_enqueue_styles() {
     wp_register_style( 'main_css',  plugin_dir_url( __FILE__ ) . 'assets/style.css' );
