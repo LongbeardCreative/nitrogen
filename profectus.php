@@ -16,12 +16,16 @@ if (! defined('ABSPATH')) {
 }
 
 //Plugin Requirements
-require_once( plugin_dir_path(__FILE__) . 'overrides/override.php');
+// require_once( plugin_dir_path(__FILE__) . 'overrides/override.php');
 require_once( plugin_dir_path(__FILE__) . 'admin/profectus_admin.php');
 
 
 function pf_enqueue_styles() {
-    wp_register_style( 'main_css',  plugin_dir_url( __FILE__ ) . 'assets/style.css' );
-    wp_enqueue_style( 'main_css' );
+    wp_enqueue_style( 'main_css', plugin_dir_url( __FILE__ ) . 'assets/style.css', array(), null );
 }
 add_action( 'oxygen_enqueue_scripts', 'pf_enqueue_styles' );
+
+function pf_cron_script() {
+	wp_enqueue_script( 'pf_cron', plugin_dir_url(__FILE__) . 'admin/inc/pf_cron.js', array( 'jquery' ), false, true );
+}
+add_action( 'oxygen_enqueue_builder_scripts', 'pf_cron_script' );

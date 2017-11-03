@@ -1,4 +1,3 @@
-<h1>Profectus Settings</h1>
 <?php settings_errors(); ?>
 <?php
 global $oxygen_api;
