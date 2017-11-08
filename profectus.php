@@ -29,22 +29,6 @@ function pf_enqueue_styles() {
 }
 add_action( 'oxygen_enqueue_scripts', 'pf_enqueue_styles' );
 
-
-//Front Scripts
-function pf_enqueue_scripts() {
-	$dir = plugin_dir_url( __FILE__ ) . 'assets/js';
-	if (is_dir($dir)) {
-	    if ($dh = opendir($dir)) {
-	        while (($file = readdir($dh)) !== false) {
-	            if (pathinfo($file, PATHINFO_EXTENSION) == 'js') {
-	            	wp_enqueue_script( $file, plugin_dir_url(__FILE__) . $file, array( 'jquery' ), false, true );
-	            }
-	        }
-	        closedir($dh);
-	    }
-	}
-}
-
 //Builder Scripts
 function pf_cron_script() {
 	wp_enqueue_script( 'pf_cron', plugin_dir_url(__FILE__) . 'admin/inc/pf_cron.js', array( 'jquery' ), false, true );
