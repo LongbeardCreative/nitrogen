@@ -3,7 +3,7 @@
 Plugin Name:  Profectus
 Plugin URI:   https://www.longbeard.com/profectus-report
 Description:  Automates various LB specific tasks. Do not delete.
-Version:      0.0.2(0024)
+Version:      0.0.2(0028)
 Author:       Evan Hennessy
 Author URI:   https://www.hennessyevan.com/
 License:      GPL2
