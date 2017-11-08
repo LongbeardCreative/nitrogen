@@ -18,19 +18,31 @@ if (! defined('ABSPATH')) {
 //Plugin Requirements
 // require_once( plugin_dir_path(__FILE__) . 'overrides/override.php');
 require_once( plugin_dir_path(__FILE__) . 'admin/profectus_admin.php');
+require_once( plugin_dir_path(__FILE__) . 'assets/functions.php' );
 
-if(file_exists('assets/functions.php')) {
-    include 'assets/functions.php';
-}
 
+/* DEFAULT SCRIPTS */
 //Front and Builder Styles
 function pf_enqueue_styles() {
     wp_enqueue_style( 'main_css', plugin_dir_url( __FILE__ ) . 'assets/style.css', array(), null );
 }
 add_action( 'oxygen_enqueue_scripts', 'pf_enqueue_styles' );
 
-//Builder Scripts
+//Development Scripts
 function pf_cron_script() {
 	wp_enqueue_script( 'pf_cron', plugin_dir_url(__FILE__) . 'admin/inc/pf_cron.js', array( 'jquery' ), false, true );
 }
-add_action( 'oxygen_enqueue_builder_scripts', 'pf_cron_script' );
+if (get_option( 'pf_settings' )['pf_devmode'] == 1) {
+	add_action( 'oxygen_enqueue_scripts', 'pf_cron_script' );
+}
+
+/* CUSTOM SCRIPTS */
+//Externals
+function pf_external_scripts() {
+	$scripts = explode(',', get_option( 'pf_settings' )['pf_script_url']);
+
+	foreach ($scripts as $script) {
+		wp_enqueue_script( 'pf_' . $script, $script );
+	}
+}
+add_action( 'oxygen_enqueue_scripts', 'pf_external_scripts' );

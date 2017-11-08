@@ -28,6 +28,11 @@ function pf_settings_init(  ) {
 
 		add_settings_field( 'pf_script_field', __( 'Script', 'profectus' ), 'pf_script_field_render', 'pluginPage', 'pf_script_section' );
 
+	//SCRIPTS SETTINGS SECTION
+	add_settings_section( 'pf_devmode_section', __( 'Development Mode', 'profectus' ), 'pf_devmode_section_callback', 'pluginPage' );
+
+		add_settings_field( 'pf_devmode_field', __( 'Development Mode', 'profectus' ), 'pf_devmode_field_render', 'pluginPage', 'pf_devmode_section' );
+
 }
 
 //****************************************************************************
@@ -52,10 +57,22 @@ function pf_script_field_render(  ) {
 	foreach ($scripts as $script) { ?>
 		<span><?php echo $script ?></span><br>
 	<?php }
-	echo "<input id='pf_script_field' name='pf_settings[pf_script_url]' size='40' type='text' placeholder='Script URL' />";
+	echo "<input id='pf_script_field' name='pf_settings[pf_script_url]' size='40' type='text' value='" . $scripts . "' placeholder='Script URL' />";
 
 }
 
+function pf_devmode_field_render(  ) { 
+
+	$options = get_option( 'pf_settings' );
+	?>
+	<select name='pf_settings[pf_devmode]'>
+		<option value='1' <?php selected( $options['pf_devmode'], 1 ); ?>>ON</option>
+		<option value='2' <?php selected( $options['pf_devmode'], 2 ); ?>>OFF</option>
+	</select>
+
+<?php
+
+}
 
 //CALLBACKS
 function pf_api_section_callback(  ) { 
@@ -67,6 +84,12 @@ function pf_api_section_callback(  ) {
 function pf_script_section_callback(  ) { 
 
 	echo __( 'Add External Scripts to Oxygen', 'profectus' );
+
+}
+
+function pf_devmode_section_callback(  ) { 
+
+	echo __( 'Enable Development Mode', 'profectus' );
 
 }
 
