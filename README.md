@@ -1,2 +1,2 @@
-# profectus
-Plugin to automate features in profectus
+# Nitrogen
+Plugin to automate features in nitrogen
