@@ -1,1 +1,2 @@
-// Put project-specific PHP functions here
+<?php
+/*Put project-specific PHP functions here*/
