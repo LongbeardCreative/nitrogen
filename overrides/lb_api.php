@@ -8,8 +8,8 @@
 
 Class CT_API {
 
-	private $server_url 		= "http://longbeardsrevenge.com/profectus";
-	private $api_url 			= "http://longbeardsrevenge.com/profectus/api";
+	private $server_url 		= "http://longbeardsrevenge.com/nitrogen";
+	private $api_url 			= "http://longbeardsrevenge.com/nitrogen/api";
 	private $consumer_key 		= "5bOAo7BrF5Jx";
 	private $consumer_secret 	= "NnmlX77iimU7ISYtzklDumny6tJgNpjrDX5819TpnZ5wXglW";
 

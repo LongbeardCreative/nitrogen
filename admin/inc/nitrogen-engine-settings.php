@@ -8,7 +8,7 @@ global $oxygen_api;
     $a = (array) $oxygen_api;
 ?>
 <div class="pf_info">
-	<p><strong>Profectus Engine</strong></p>
+	<p><strong>Nitrogen Engine</strong></p>
     <span>Current SERVER URL: <?php echo $a[$server_url]; ?></span>
     <br>
     <span>Current API URL: <?php echo $a[$api_url]; ?></span>
@@ -21,7 +21,7 @@ global $oxygen_api;
 
 
 <form method="post" action="options.php">
-    <?php settings_fields( 'pf-engine-group' ); ?>
-    <?php do_settings_sections( 'pf_settings' ); ?>
+    <?php settings_fields( 'nt-engine-group' ); ?>
+    <?php do_settings_sections( 'nt_settings' ); ?>
     <?php submit_button(); ?>
 </form>

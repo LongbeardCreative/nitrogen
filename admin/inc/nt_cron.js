@@ -2,18 +2,23 @@ var $ = jQuery.noConflict();
 
 var file = $('#main_css-css'),
 	filePath = file.attr('href'),
+	cronrate = $('[name="cronrate"]').attr('content'),
 	loadCount = 0;
 
 $(function() {
-	var cron = 2 * 1000; //10 seconds
+	var cron = cronrate * 1000; //10 seconds
 
 	if (file.length) {
 		window.setInterval(function(){
-			console.log("Fetching");
 			checkLastModified(filePath);
 		}, cron);
 	}
 });
+
+function cronInfo() {
+	console.log('Cron Rate: ' + cronrate + ' seconds');
+	console.log('Cookie: ' + readCookie('nt_css'));
+}
 
 function checkLastModified(path) {
 	var res; //globalize response
@@ -29,15 +34,15 @@ function checkLastModified(path) {
 }
 
 function cookStyle(res) {
-	if (readCookie('pf_css') == null) { //if no cookie for file
-		createCookie('pf_css', res, 0.5); //write cookie with expiry of half a day
+	if (readCookie('nt_css') == null) { //if no cookie for file
+		createCookie('nt_css', res, 0.5); //write cookie with expiry of half a day
 		refreshStyle(); //refresh CSS
 	} else {
-		var currTS = readCookie('pf_css'); //read cookie
+		var currTS = readCookie('nt_css'); //read cookie
 
 		if (currTS !== res) { //check if res == cookieTime
 			console.log('res: ' + res + 'cookie: ' + currTS);
-			createCookie('pf_css', res, 0.5);
+			createCookie('nt_css', res, 0.5);
 			refreshStyle(); //if no match, refresh stylesheet
 		} else {
 			return; //otherwise return
