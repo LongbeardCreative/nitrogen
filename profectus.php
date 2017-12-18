@@ -18,7 +18,16 @@ if (! defined('ABSPATH')) {
 //Plugin Requirements
 // require_once( plugin_dir_path(__FILE__) . 'overrides/override.php');
 require_once( plugin_dir_path(__FILE__) . 'admin/profectus_admin.php');
-require_once( plugin_dir_path(__FILE__) . 'assets/functions.php' );
+
+if ( file_exists( plugin_dir_path(__FILE__) . 'assets/functions.php' ) ) {
+	require_once( plugin_dir_path(__FILE__) . 'assets/functions.php' );
+}
+
+//Oxygen CSS Overrides
+// function pf_override_styles() {
+//     wp_enqueue_style( 'override_css', plugin_dir_url( __FILE__ ) . 'overrides/override.css', array(), null );
+// }
+// add_action( 'wp_enqueue_scripts', 'pf_override_styles', 9999 );
 
 
 /* DEFAULT SCRIPTS */
