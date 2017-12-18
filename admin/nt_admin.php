@@ -9,10 +9,10 @@ function nt_add_admin_menu(  ) {
 }
 
 //ADMIN JS
-function nt_admin_js() {
-	wp_enqueue_script( 'nt_admin_js', plugin_dir_url( __FILE__ ) . 'inc/nt_admin.js', array( 'jquery' ), false, false );
-}
-add_action( 'admin_enqueue_scripts', 'nt_admin_js' );
+// function nt_admin_js() {
+// 	wp_enqueue_script( 'nt_admin_js', plugin_dir_url( __FILE__ ) . 'inc/nt_admin.js', array( 'jquery' ), false, false );
+// }
+// add_action( 'admin_enqueue_scripts', 'nt_admin_js' );
 
 
 function nt_settings_init(  ) { 

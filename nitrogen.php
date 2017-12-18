@@ -3,7 +3,7 @@
 Plugin Name:  Nitrogen
 Plugin URI:   https://www.longbeard.com/nitrogen-report
 Description:  Automates various LB specific tasks. Do not delete.
-Version:      0.0.2(0033)
+Version:      0.0.2(0034)
 Author:       Evan Hennessy
 Author URI:   https://www.hennessyevan.com/
 License:      GPL2
@@ -43,7 +43,6 @@ function nt_cron_script() {
 }
 if (get_option( 'nt_settings' )['nt_devmode'] == 1) {
 	add_action( 'oxygen_enqueue_scripts', 'nt_cron_script' );
-	add_meta_tags();
 }
 
 function add_meta_tags() {

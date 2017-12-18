@@ -14,16 +14,16 @@ $nt_using = get_option( 'nt_using' );
 // 	rename( $oxygen_api_dir . 'api.php', $oxygen_api_dir . 'api-oxygen.php' );
 // }
 
-if ( $api_source == 1 &&  $nt_using !== 1 ) {
-	copy( $nitrogen_overrides_dir . 'lb_api.php', $oxygen_api_dir . 'api.php' );
-} else if ( $api_source == 2 &&  $nt_using !== 2 ) {
-	copy( $nitrogen_overrides_dir . 'oxy_api.php', $oxygen_api_dir . 'api.php' );
-}
+// if ( $api_source == 1 &&  $nt_using !== 1 ) {
+// 	copy( $nitrogen_overrides_dir . 'lb_api.php', $oxygen_api_dir . 'api.php' );
+// } else if ( $api_source == 2 &&  $nt_using !== 2 ) {
+// 	copy( $nitrogen_overrides_dir . 'oxy_api.php', $oxygen_api_dir . 'api.php' );
+// }
 
-function nt_using( $source ) {
-	if ( ! get_option( 'nt_using' ) ) {
-		add_option( 'nt_using', $source, '', 'no' );
-	} else {
-		update_option( 'nt_using', $source, 'no' );
-	}
-}
+// function nt_using( $source ) {
+// 	if ( ! get_option( 'nt_using' ) ) {
+// 		add_option( 'nt_using', $source, '', 'no' );
+// 	} else {
+// 		update_option( 'nt_using', $source, 'no' );
+// 	}
+// }
