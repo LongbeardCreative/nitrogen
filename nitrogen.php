@@ -10,13 +10,31 @@ License:      GPL2
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
 */
 
+define("NT_VERSION", "1.0");
+define("NT_OXYGEN_REQUIRED_VERSION", "1.4");
+
 //Exit if Accessed Directly
-if (! defined('ABSPATH')) {
+if (! defined('ABSPATH') || versions_is_ok()) {
     exit;
 }
 
+function versions_is_ok() {
+
+	if ( ! defined("CT_VERSION") ) {
+		add_action( 'admin_notices', array( $this, 'oxygen_not_found' ) );
+		return false;
+	}
+
+	if ( version_compare( CT_VERSION, NT_OXYGEN_REQUIRED_VERSION ) >= 0) {
+    	return true;
+	}
+	else {
+		add_action( 'admin_notices', array( $this, 'oxygen_wrong_version' ) );
+		return false;
+	}
+}
+
 //Plugin Requirements
-// require_once( plugin_dir_path(__FILE__) . 'overrides/override.php');
 require_once( plugin_dir_path(__FILE__) . 'admin/nt_admin.php');
 
 if ( file_exists( plugin_dir_path(__FILE__) . 'assets/functions.php' ) ) {
