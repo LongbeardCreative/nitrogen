@@ -46,8 +46,7 @@ if ( file_exists( plugin_dir_path(__FILE__) . 'assets/functions.php' ) ) {
 function nt_enqueue_styles() {
     wp_enqueue_style( 'main_css', plugin_dir_url( __FILE__ ) . 'assets/style.css', array(), null );
 }
-add_action( 'oxygen_enqueue_builder_scripts', 'nt_enqueue_styles', 1 );
-add_action( 'oxygen_enqueue_scripts', 'nt_enqueue_styles', 20 );
+add_action( 'oxygen_enqueue_scripts', 'nt_enqueue_styles' );
 
 //Development Scripts
 function nt_cron_script() {
