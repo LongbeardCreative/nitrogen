@@ -4,7 +4,11 @@ add_action( 'admin_init', 'nt_settings_init' );
 
 function nt_add_admin_menu(  ) { 
 
+<<<<<<< HEAD
 	add_submenu_page( 'ct_dashboard_page', 'Nitrogen Settings', 'Nitrogen Settings', 'manage_options', 'nt-development', 'nt_options_page' );
+=======
+	add_submenu_page( 'ct_dashboard_page', 'Nitrogen Settings', 'Nitrogen Settings', 'manage_options', 'nitrogen', 'nt_options_page' );
+>>>>>>> parent of c718c6a... Title Change
 
 }
 
@@ -109,7 +113,11 @@ settings_errors();
 	?>
 	<form action='options.php' method='post'>
 
+<<<<<<< HEAD
 		<h2>Development Settings</h2>
+=======
+		<h2>Nitrogen Settings</h2>
+>>>>>>> parent of c718c6a... Title Change
 
 		<?php
 		settings_fields( 'pluginPage' );
