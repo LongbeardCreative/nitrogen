@@ -1,0 +1,35 @@
+.nt-plugin-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	width: 100%;
+}
+
+.nt-plugin-card {
+	width: 30%;
+	background: white;
+	border: 1px solid #e0e0e0;
+	padding: 2.15vw;
+	box-sizing: border-box;
+}
+
+.nt-plugin-image {
+	width: 100px;
+}
+
+.nt-last-approved,
+.nt-version,
+.nt-license,
+.button {
+	display: block;
+	margin-top: 15px;
+}
+
+.nt-license {
+	color: #0085ba;
+	cursor: pointer;
+}
+
+.nt-license:hover {
+	opacity: 0.8;
+}
