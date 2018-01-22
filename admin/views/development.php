@@ -51,7 +51,7 @@ function nt_script_section_callback(  ) {
 
 function nt_devmode_section_callback(  ) { 
 
-	echo __( 'Enable Development Mode', 'nitrogen' );
+	// echo __( 'Enable Development Mode', 'nitrogen' );
 
 }
 
@@ -68,7 +68,7 @@ settings_errors();
 	<script src="../inc/admin.js"></script>
 	<form class="dev-options" action='options.php' method='post'>
 
-		<h2>Development</h2>
+		<h2>Settings</h2>
 
 		<?php
 		settings_fields( 'pluginPage' );
@@ -78,5 +78,15 @@ settings_errors();
 
 	</form>
 	<?php
+
+	function print_active_scripts() {
+	    global $wp_scripts;
+	    echo PHP_EOL.'<!-- Script Handles: ';
+	    foreach( $wp_scripts->queue as $handle ) :
+	        echo $handle . ' || ';
+	    endforeach;
+	    echo ' -->'.PHP_EOL;
+	}
+	print_active_scripts();
 
 }

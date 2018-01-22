@@ -1,3 +1,30 @@
-.toplevel_page_nitrogen .wp-first-item {
-	display: none;
+.nt-plugin-wrapper {
+	display: grid;
+	grid-gap: 20px;
+	grid-template-columns: 1fr 1fr 1fr;
+	padding-right: 20px;
+}
+
+.nt-script-entry {
+	background: white;
+	padding: 20px;
+	border: 1px solid #e0e0e0;
+}
+
+.script-button {
+	margin-top: 20px !important;
+}
+
+.script-button.nt-enabled {
+	background: #c12d2d;
+	color: #650000;
+	border-color: #650000;
+}
+
+.script-button.nt-enabled:hover,
+.script-button.nt-enabled:focus,
+.script-button.nt-enabled:active {
+	background: #962323 !important;
+	border-color: #650000 !important;
+	color: #650000 !important;
 }

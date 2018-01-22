@@ -2,10 +2,9 @@
 
 add_action( 'admin_init', 'nt_plugin_init' );
 
-	function nt_scripts_init(  ) { 
-		register_setting( 'approvedScripts', 'nt_settings' );
-
-	}
+function nt_scripts_init(  ) { 
+	register_setting( 'approvedScripts', 'nt_settings' );
+}
 
 /**
 * MAIN Callback
@@ -65,22 +64,34 @@ function approved_scripts_callback() {
 			wp_enqueue_script ( 'nt-cdn-script', plugins_url("../inc/cdn.js", __FILE__), array(), false, true );
 			add_action( 'admin_enqueue_scripts', 'nt-cdn-script' );
 
+			wp_enqueue_style ( 'nt-script-css', plugins_url("../inc/admin.css", __FILE__) );
+			add_action( 'admin_enqueue_scripts', 'nt-script-css' );
+
 			?><h5>All Scripts served by cdn-js</h5><br>
+			<?php $enabled_scripts = get_option('nt_scripts_arr'); ?>
 			<div class="nt-plugin-wrapper"><?php
 
 			foreach ($newArray as $key => $entry) : ?>
-				<div data-script-slug="<?php echo $entry['slug'] ?>" data-script-deps="<?php echo $entry['deps'] ?>" class="nt-script-entry">
+			<?php
+				if ( $enabled_scripts[$entry['slug']] ) {
+					$status = 'enabled';
+				} else {
+					$status = 'disabled';
+				}
+			?>
+
+				<div data-script-version="<?php echo $entry['version'] ?>" data-script-slug="<?php echo $entry['slug'] ?>" data-script-deps="<?php echo $entry['deps'] ?>" class="nt-script-entry <?php echo $status ?>">
 					<h3 class="nt-script-title"><?php echo $entry['name'] ?></h3>
 					<div>
-						<span class="nt-script-approved-version"><strong>Approved Version:</strong> <?php echo $entry['version'] ?></span>
+						<span class="nt-script-approved-version"><strong>Approved Version:</strong> <span id="approved-version"><?php echo $entry['version'] ?></span></span>
 						<br>
 						<span class="nt-script-curr-version"><strong>Current Version:</strong> <span id="version-result"></span></span>
 						<br>
 						<span class="nt-script-description"><strong>Description:</strong> <span id="description-result"></span></span>
 						<br>
-						<span class="nt-script-assets"><strong>Assets:</strong> <span id="assets-result"></span></span>
-						<br>
-						<a class="script-button button button-primary" href="#">Enable</a>
+						<!-- <span class="nt-script-assets"><strong>Assets:</strong> <span id="assets-result"></span></span>
+						<br> -->
+						<a class="script-button button button-secondary nt-<?php echo $status ?>" href="#"><?php echo $status == 'enabled' ? 'Disable' : 'Enable' ?></a>
 					</div>
 				</div>
 			<?php

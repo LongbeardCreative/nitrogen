@@ -60,6 +60,11 @@ if ( file_exists( plugin_dir_path(__FILE__) . 'assets/functions.php' ) ) {
 	require_once( plugin_dir_path(__FILE__) . 'assets/functions.php' );
 }
 
+function get_extension($file) {
+	$extension = end(explode(".", $file));
+	return $extension ? $extension : false;
+}
+
 
 
 /* DEFAULT SCRIPTS */
@@ -69,6 +74,24 @@ function nt_enqueue_styles() {
 }
 add_action( 'oxygen_enqueue_builder_scripts', 'nt_enqueue_styles', 1 );
 add_action( 'oxygen_enqueue_scripts', 'nt_enqueue_styles', 20 );
+
+//Approved Scripts Enqueue
+function nt_approved_scripts() {
+	$scripts = get_option('nt_scripts_arr');
+
+	foreach ( $scripts as $slug => $vars ) {
+		$version = $vars['version'];
+		foreach ( $vars['scripts'] as $url ) {
+			if ( get_extension($url) == 'css' ) {
+	    		wp_enqueue_style( $slug, 'https://cdnjs.cloudflare.com/ajax/libs/' . $slug . '/' . $version . '/' . $url, array(), false );
+	    	} elseif ( get_extension($url) == 'js' ) {
+	    		wp_enqueue_script( $slug, 'https://cdnjs.cloudflare.com/ajax/libs/' . $slug . '/' . $version . '/' . $url, array(), false, true );
+	    	}
+		}
+	}
+}
+add_action( 'wp_enqueue_scripts', 'nt_approved_scripts' );
+
 
 //Development Scripts
 function nt_cron_script() {
