@@ -1,5 +1,8 @@
 <?php
 
+if ( ! function_exists( 'plugins_api' ) )
+require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+
 add_action( 'admin_init', 'nt_plugin_init' );
 
 	function nt_plugin_init(  ) { 
@@ -89,26 +92,28 @@ function approved_plugins_callback() {
 			wp_enqueue_style( 'plugins-css', plugin_dir_url( __FILE__ ) . 'css/plugin.css' );
 
 			?><h2>Approved Plugin Library</h2><br>
-			<div class="nt-plugin-wrapper"><?php
+			<div class="plugin-wrapper"><?php
 
-			foreach ($newArray as $key => $entry) : ?>
-				<div class="nt-plugin-card">
-					<a href="<?php echo $entry['Plugin Homepage'] ?>" class="nt-plugin-url">
-						<h2 class="nt-plugin-title"><?php echo $entry['Plugin Name'] ?></h2>
-					</a>
-					<div class="nt-plugin-image-holder">
-						<img src="<?php echo $entry['Image URL'] ?>" alt="<?php echo $entry['Plugin Name'] ?>" class="nt-plugin-image <?php echo strtolower( $entry['Plugin Name'] ) ?>">
-					</div>
-					<p class="nt-plugin-description"><?php echo $entry['Description'] ?></p>
-					<span class="nt-last-approved"><strong>Last Approved:</strong> <?php echo $entry['Last Approved'] ?></span>
-					<span class="nt-license"><strong>Click to reveal license number</strong> <?php echo $entry['License Number'] ?></span>
-					<span class="nt-version"><strong>Version:</strong> <?php echo $entry['Version'] ?></span>
-					<a class="button button-primary" href="<?php echo $entry['Plugin Homepage'] ?>">Download</a>
-				</div>
-			<?php
-			endforeach;
+			/** Prepare our query */
+		    $plugin = plugins_api( 'plugin_information', 
+		    	array(
+		    		'slug' => 'jetpack'
+		    	)
+		    );
+		 
+		    /** Check for Errors & Display the results */
+		    if ( is_wp_error( $plugin ) ) {
+		 
+		        echo '<pre>' . print_r( $plugin->get_error_message(), true ) . '</pre>';
+		 
+		    } else { ?>
+		 
+		            <p>Name: <?php echo $plugin->name ?></p>
+		            <p>Homepage: <?php echo $plugin->homepage ?></p>
+		            <p>Last Updated: <?php echo $plugin->last_updated ?></p>
+		            <p>URL: <?php echo $plugin->download_link ?></p>
+		 <?php } ?>
 
-		?>
 			</div>
 
 	<?php
