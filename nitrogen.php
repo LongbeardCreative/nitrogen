@@ -3,7 +3,7 @@
 Plugin Name:  Nitrogen
 Plugin URI:   https://www.longbeard.com/nitrogen-report
 Description:  Automates various LB specific tasks. Do not delete.
-Version:      0.0.3(0041)
+Version:      0.1.1(0038)
 Author:       Evan Hennessy
 Author URI:   https://www.hennessyevan.com/
 License:      GPL2
@@ -15,65 +15,71 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-define("NT_VERSION", "0.0.2");
+define("NT_VERSION", "0.1.1");
 define("NT_OXYGEN_REQUIRED_VERSION", "1.4");
 
 
-function versions_is_ok() {
 
-		if ( ! defined("CT_VERSION") ) {
-			add_action( 'admin_notices', array( $this, 'oxygen_not_found' ) );
-			return false;
-		}
+/**
+* Override Files
+* 
+* @since 0.0.1
+* @author Evan Hennessy
+**/
 
-		if ( version_compare( CT_VERSION, NT_OXYGEN_REQUIRED_VERSION ) >= 0) {
-	    	return true;
-		}
-		else {
-			add_action( 'admin_notices', array( $this, 'oxygen_wrong_version' ) );
-			return false;
-		}
+function nt_activate() {
+	$plugin_root = WP_CONTENT_DIR . '/plugins';
+	$oxygen_original = $plugin_root . '/oxygen/component-framework/';
+	$nitrogen_overrides_dir = $plugin_root . '/nitrogen/overrides/';
+
+	$file = file_get_contents($oxygen_original . "components/component.class.php");
+	$file = str_replace("\$advanced_defaults = array", "\$advanced_blank = array", $file);
+
+	$initfile = file_get_contents($oxygen_original . "component-init.php");
+	$initfile = str_replace("\$css .= \"@media (max-width: 992px)", "\$cssbak = \"@media (max-width: 992px)", $initfile);
+
+	file_put_contents($oxygen_original . "components/component.class.php", $file);
+	file_put_contents($oxygen_original . "component-init.php", $initfile);
+
+	if (!get_option('initial_set')) {
+		update_option('uploads_use_yearmonth_folders', FALSE);
+		update_option('permalink_structure', '/%postname%/');
+		update_option('initial_set', TRUE);
 	}
-
-	function oxygen_not_found() {
-		
-		$classes = 'notice notice-error';
-		$message = __( 'Can\'t start Selector Detector add-on. Oxygen main plugin not found active in your install.', 'oxygen' );
-
-		printf( '<div class="%1$s"><p>%2$s</p></div>', $classes, $message ); 
-	}
-
-	function oxygen_wrong_version() {
-		
-		$classes = 'notice notice-error';
-		$message = __( 'Your Oxygen version is not supported by Selector Detector add-on. Minimal required Oxygen version is:', 'oxygen' );
-
-		printf( '<div class="%1$s"><p>%2$s <b>%3$s</b></p></div>', $classes, $message, NT_OXYGEN_REQUIRED_VERSION ); 
-	}
+}
+register_activation_hook( __FILE__, 'nt_activate' );
 
 
 
-//Plugin Requirements
+/**
+* Plugin Requirements 
+* 
+* @since 0.0.1
+* @author Evan Hennessy
+**/
+
 require_once( plugin_dir_path(__FILE__) . 'admin/nt_admin.php');
+// require_once( plugin_dir_path(__FILE__) . 'overrides/override.php');
 
 if ( file_exists( plugin_dir_path(__FILE__) . 'assets/functions.php' ) ) {
 	require_once( plugin_dir_path(__FILE__) . 'assets/functions.php' );
 }
 
-function get_extension($file) {
-	$extension = end(explode(".", $file));
-	return $extension ? $extension : false;
-}
 
 
+/**
+* DEFAULT SCRIPTS
+*
+* @since 0.0.1
+* @author Evan Hennessy
+**/
 
-/* DEFAULT SCRIPTS */
 //Front and Builder Styles
 function nt_enqueue_styles() {
     wp_enqueue_style( 'main_css', plugin_dir_url( __FILE__ ) . 'assets/style.css', array(), null );
 }
 add_action( 'oxygen_enqueue_builder_scripts', 'nt_enqueue_styles', 1 );
-add_action( 'oxygen_enqueue_scripts', 'nt_enqueue_styles', 20 );
+add_action( 'wp_enqueue_scripts', 'nt_enqueue_styles', 199 );
 
 //Approved Scripts Enqueue
 function nt_approved_scripts() {
@@ -93,7 +99,13 @@ function nt_approved_scripts() {
 add_action( 'wp_enqueue_scripts', 'nt_approved_scripts' );
 
 
-//Development Scripts
+/**
+* Development Scripts
+* 
+* @since 0.0.3
+* @author Evan Hennessy
+**/
+
 function nt_cron_script() {
 	wp_enqueue_script( 'nt_cron', plugin_dir_url(__FILE__) . 'admin/inc/nt_cron.js', array( 'jquery' ), false, true );
 }

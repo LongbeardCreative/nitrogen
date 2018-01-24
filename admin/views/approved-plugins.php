@@ -1,7 +1,7 @@
 <?php
 
 if ( ! function_exists( 'plugins_api' ) )
-require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+	// require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
 
 add_action( 'admin_init', 'nt_plugin_init' );
 
